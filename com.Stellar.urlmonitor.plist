@@ -6,7 +6,7 @@
 	<string>com.Stellar.urlmonitor.plist</string>
 	<key>ProgramArguments</key>
 	<array>
-		<string>/Path/urlmonitor.sh</string>
+		<string>/Users/Stellar/Documents/urlmonitor/urlmonitor.sh</string>
 	</array>
 	<key>KeepAlive</key>
 	<false/>
@@ -14,5 +14,9 @@
 	<true/>
 	<key>StartInterval</key>
 	<integer>3600</integer>
+	<key>StandardOutPath</key>
+	<string>/Users/Stellar/Documents/urlmonitor/urlmonitor.stdout.log</string>
+	<key>StandardErrorPath</key>
+	<string>/Users/Stellar/Documents/urlmonitor/urlmonitor.stderr.log</string>
 </dict>
 </plist>
