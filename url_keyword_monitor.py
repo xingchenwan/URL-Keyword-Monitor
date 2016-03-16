@@ -71,11 +71,15 @@ def write_file(incidences):
 
 def match(line_no):
     """Takes line_no and returns the corresponding appropriate keyword index to be matched"""
-    if not line_no: return -2 # URL Line
+    if not line_no:
+        return -2  # URL Line
     else:
-        if not line_no % (len(keywords) + 1): return len(keywords) - 1
-        elif line_no % (len(keywords) + 1) != 1: return line_no % (len(keywords) + 1) - 2
-        else: return -1
+        if not line_no % (len(keywords) + 1):
+            return len(keywords) - 1
+        elif line_no % (len(keywords) + 1) != 1:
+            return line_no % (len(keywords) + 1) - 2
+        else:
+            return -1
 
 
 def main(verbose=False, notif_email=True):
@@ -108,29 +112,31 @@ def main(verbose=False, notif_email=True):
                 is_changed = True
                 if notif_email:
                     print ("Sending Email...")
-                    email()
-                    print ('Done!')
+                    email(keywords[match(line_count)])
+                    print ('Success!')
                 break
         line_count += 1
     if not is_changed: print "Done. No changes found"
     write_file(incidences)
     return
 
-def email():
-    import smtplib
 
-    server = smtplib.SMTP('smtp.live.com',587)
+def email(keyword):
+    import smtplib
+    server = smtplib.SMTP('smtp.live.com', 587)
     server.ehlo()
     server.starttls()
-    server.login('email','password')
+    server.login('email', 'pass')
     message = "\r\n".join([
-    "From: Automated Alert",
-    "To: X Wan",
-    "Subject: Webpage change - Alert",
-    'A change in keywords in watched webpage is detected at URL : {0:s}'.format(URL)])
+        "From: Automated Alert",
+        "To: X Wan",
+        "Subject: Webpage change - Alert",
+        'A change in keywords in watched webpage is detected at URL : {0:s}'
+        ' for keyword "{1:s}"'.format(URL, keyword)])
     # server.set_debuglevel(1)
-    server.sendmail('sender','recipient',message)
+    server.sendmail('send', 'receive', message)
     server.quit()
+
 
 if __name__ == '__main__':
     if internet_test():
