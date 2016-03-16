@@ -6,7 +6,7 @@
 	<string>com.Stellar.urlmonitor.plist</string>
 	<key>ProgramArguments</key>
 	<array>
-		<string>/Users/Stellar/Documents/urlmonitor/urlmonitor.sh</string>
+		<string>/Path/urlmonitor.sh</string>
 	</array>
 	<key>KeepAlive</key>
 	<false/>
