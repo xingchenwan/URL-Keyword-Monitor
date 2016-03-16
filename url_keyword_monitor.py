@@ -78,7 +78,7 @@ def match(line_no):
         else: return -1
 
 
-def main(verbose=False):
+def main(verbose=False, notif_email=False):
     is_changed = False
     response = urllib2.urlopen(URL).read()
     check_param()
@@ -112,6 +112,21 @@ def main(verbose=False):
     write_file(incidences)
     return
 
+def email():
+    import smtplib
+
+    server = smtplib.SMTP('smpt.example.com',25)
+    server.starttls()
+    server.login('your@email.com','password')
+    message = """From: Automated Alert <your@email.com>
+    To: X Wan <to@todomain.com>
+    Subject: Webpage change - Alert
+
+    A change in keywords in watched webpage is detected
+    URL : {1:s}
+    """.format(URL)
+    server.sendmail('your@email.com','recepient@email.com')
+    server.quit()
 
 if __name__ == '__main__':
     if internet_test():
