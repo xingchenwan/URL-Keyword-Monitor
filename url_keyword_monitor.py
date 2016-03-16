@@ -78,7 +78,7 @@ def match(line_no):
         else: return -1
 
 
-def main(verbose=False, notif_email=False):
+def main(verbose=False, notif_email=True):
     is_changed = False
     response = urllib2.urlopen(URL).read()
     check_param()
@@ -106,6 +106,10 @@ def main(verbose=False, notif_email=False):
                                                                            incidences[match(line_count)],
                                                                            URL))
                 is_changed = True
+                if notif_email:
+                    print ("Sending Email...")
+                    email()
+                    print ('Done!')
                 break
         line_count += 1
     if not is_changed: print "Done. No changes found"
@@ -115,17 +119,17 @@ def main(verbose=False, notif_email=False):
 def email():
     import smtplib
 
-    server = smtplib.SMTP('smpt.example.com',25)
+    server = smtplib.SMTP('smtp.live.com',587)
+    server.ehlo()
     server.starttls()
-    server.login('your@email.com','password')
-    message = """From: Automated Alert <your@email.com>
-    To: X Wan <to@todomain.com>
-    Subject: Webpage change - Alert
-
-    A change in keywords in watched webpage is detected
-    URL : {1:s}
-    """.format(URL)
-    server.sendmail('your@email.com','recepient@email.com')
+    server.login('email','password')
+    message = "\r\n".join([
+    "From: Automated Alert",
+    "To: X Wan",
+    "Subject: Webpage change - Alert",
+    'A change in keywords in watched webpage is detected at URL : {0:s}'.format(URL)])
+    # server.set_debuglevel(1)
+    server.sendmail('sender','recipient',message)
     server.quit()
 
 if __name__ == '__main__':
