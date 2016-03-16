@@ -71,15 +71,11 @@ def write_file(incidences):
 
 def match(line_no):
     """Takes line_no and returns the corresponding appropriate keyword index to be matched"""
-    if not line_no:  # URL Line
-        return -2
+    if not line_no: return -2 # URL Line
     else:
-        if not line_no % (len(keywords) + 1):
-            return len(keywords) - 1
-        elif line_no % (len(keywords) + 1) != 1:
-            return line_no % (len(keywords) + 1) - 2
-        else:  # Timestamp Line
-            return -1
+        if not line_no % (len(keywords) + 1): return len(keywords) - 1
+        elif line_no % (len(keywords) + 1) != 1: return line_no % (len(keywords) + 1) - 2
+        else: return -1
 
 
 def main(verbose=False):
