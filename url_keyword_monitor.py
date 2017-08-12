@@ -3,13 +3,8 @@ import os
 import time
 import re
 
-keywords = ['We will be advertising this opportunity to all eligible students',
-            'Deutsche',
-            'Engineering',
-            'Scholarship and Internship',
-            'late Hilary Term 2016',
-            ]
-URL = 'http://www.st-annes.ox.ac.uk/current/internships-and-career-opportunities'
+keywords = ["Quick", "Fox", "jumps", "over", "lazy", "dog"]
+URL = 'http://some.website'
 file_name = 'urlmonitor.txt'
 
 
@@ -129,7 +124,7 @@ def email(keyword):
     server.login('email', 'pass')
     message = "\r\n".join([
         "From: Automated Alert",
-        "To: X Wan",
+        "To: Your name",
         "Subject: Webpage change - Alert",
         'A change in keywords in watched webpage is detected at URL : {0:s}'
         ' for keyword "{1:s}"'.format(URL, keyword)])
